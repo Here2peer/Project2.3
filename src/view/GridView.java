@@ -15,7 +15,6 @@ public class GridView extends AbstractView {
         final Color color2 = Color.ORANGE;
         final Color color3 = Color.pink;
 
-
         boolean blackTurn = true;
 
         /*
