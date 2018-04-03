@@ -91,12 +91,16 @@ public class GridView extends AbstractView {
             for(int y=0; y<multi.length; y++) {
                 for (int x = 0; x < multi.length; x++) {  //Alle vakjes bij langs
                         grid[y][x].setIcon(null);
-                    if (String.valueOf(multi[y][x]).equals("1")) { //Als vakje zwart is
-                        grid[y][x].setIcon(new ColorIconRound(30, color1));
-                    } else if (String.valueOf(multi[y][x]).equals("2")) {  //Als vakje wit is
-                        grid[y][x].setIcon(new ColorIconRound(30, color2));
-                    } else if (String.valueOf(multi[y][x]).equals("3")) {  //Als vakje wit is
-                        grid[y][x].setIcon(new ColorIconRound(10, color3));
+                    switch (String.valueOf(multi[y][x])) {
+                        case "1":  //Als vakje zwart is
+                            grid[y][x].setIcon(new ColorIconRound(30, color1));
+                            break;
+                        case "2":   //Als vakje wit is
+                            grid[y][x].setIcon(new ColorIconRound(30, color2));
+                            break;
+                        case "3":   //Als vakje wit is
+                            grid[y][x].setIcon(new ColorIconRound(10, color3));
+                            break;
                     }
 
                 }
@@ -104,18 +108,23 @@ public class GridView extends AbstractView {
         }
 
         public void changeGrid(int color, int tempy, int tempx) {
-                if(color==0) {
-                    grid[tempy][tempx].setIcon(new ColorIconRound(30,Color.WHITE));
+            switch (color) {
+                case 0:
+                    grid[tempy][tempx].setIcon(new ColorIconRound(30, Color.WHITE));
                     this.multi[tempy][tempx] = 1;
-                } else if (color==1) {
-                    grid[tempy][tempx].setIcon(new ColorIconRound(30,Color.BLACK));
+                    break;
+                case 1:
+                    grid[tempy][tempx].setIcon(new ColorIconRound(30, Color.BLACK));
                     multi[tempy][tempx] = 1;
-                } else if(color==2) {
-                    grid[tempy][tempx].setIcon(new ColorIconRound(30,Color.ORANGE));
+                    break;
+                case 2:
+                    grid[tempy][tempx].setIcon(new ColorIconRound(30, Color.ORANGE));
                     multi[tempy][tempx] = 2;
-                } else {
+                    break;
+                default:
                     System.out.println("Color code incorrect!");
-                }
+                    break;
+            }
         }
 
         private void setStart(){

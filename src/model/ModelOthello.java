@@ -2,7 +2,7 @@ package model;
 
 import view.AbstractView;
 
-public class Orthello {
+public class ModelOthello {
 
 
     private void checkPossibleMoves(AbstractView gridView) {

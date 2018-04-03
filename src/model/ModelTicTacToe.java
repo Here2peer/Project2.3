@@ -39,9 +39,7 @@ public class ModelTicTacToe {
         if (multi[1][1] != 0) {
             if (multi[0][0] == multi[1][1] && multi[1][1] == multi[2][2]) {
                 return true;
-            } else if (multi[0][2] == multi[1][1] && multi[1][1] == multi[2][0]) {
-                return true;
-            }  //Checkt alle schuine
+            } else return multi[0][2] == multi[1][1] && multi[1][1] == multi[2][0];
 
         }
         return false;

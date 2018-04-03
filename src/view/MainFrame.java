@@ -23,7 +23,7 @@ public class MainFrame implements ActionListener {
                 this.controller = controller;
                 this.view = new GridView(controller, this.model);
 
-                mainFrame=new JFrame("Reversi - ITV2G, Groep 2");
+                mainFrame=new JFrame("Game - ITV2G, Groep 2");
                 mainFrame.setSize(800, 800);
                 mainFrame.setResizable(true);
                 mainFrame.setLayout(null);
