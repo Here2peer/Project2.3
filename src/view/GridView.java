@@ -46,10 +46,10 @@ public class GridView extends AbstractView {
 
         public GridView(Model model){
             super(model);
-            gridGen(tictac,tictac);
+            gridGen(tictac);
             grid=new JButton[width][heigth]; //Groote van grid maken
             //setStart();
-            initateFrame(tictac,tictac);
+            initateFrame(tictac);
         }
 
         private void checkPossibleMoves() {
@@ -76,11 +76,11 @@ public class GridView extends AbstractView {
             multi = tempGrid;
         }
 
-        private void initateFrame(int xx, int yy) {
+        private void initateFrame(int gametype) {
                 int width = multi.length;
                 int heigth = multi.length;
 
-                setLayout(new GridLayout(xx, yy));
+                setLayout(new GridLayout(gametype, gametype));
                 for(int y=0; y<multi.length; y++){
                     for(int x=0; x<multi.length; x++){  //Alle vakjes bij langs
 
@@ -160,9 +160,9 @@ public class GridView extends AbstractView {
             multi[4][4] = 1;
         }
 
-        private void gridGen(int x, int y){
+        private void gridGen(int gametype){
             //2D Array met waarden van vakjes erin
-            this.multi = new int[x][y];
+            this.multi = new int[gametype][gametype];
             this.width = multi.length;
             this.heigth = multi.length;
         }
