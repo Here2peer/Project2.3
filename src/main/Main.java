@@ -1,6 +1,7 @@
 package main;
 
 import model.Model;
+import model.TicTacToe;
 import view.AbstractView;
 import view.GridView;
 import controller.*;
@@ -37,5 +38,7 @@ public class Main{
 
 		controller.setBounds(570,0,200,550);
 		controller.setBackground(Color.WHITE);
+
+		TicTacToe game = new TicTacToe(gridView);
 	}
 }
