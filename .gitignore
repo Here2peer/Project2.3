@@ -70,3 +70,4 @@ fabric.properties
 # End of https://www.gitignore.io/api/intellij
 *.xml
 Project2.3.iml
+.idea/workspace.xml___jb_tmp___

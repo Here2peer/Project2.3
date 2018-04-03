@@ -15,7 +15,6 @@ public class GridView extends AbstractView {
         final Color color2 = Color.ORANGE;
         final Color color3 = Color.pink;
 
-        private JButton button;
 
         boolean blackTurn = true;
 
@@ -86,11 +85,12 @@ public class GridView extends AbstractView {
                 }
             }
 
-        private void colorFrames() {
+        public void colorFrames() {
             multi = model.getGridView();
 
             for(int y=0; y<multi.length; y++) {
                 for (int x = 0; x < multi.length; x++) {  //Alle vakjes bij langs
+                        grid[y][x].setIcon(null);
                     if (String.valueOf(multi[y][x]).equals("1")) { //Als vakje zwart is
                         grid[y][x].setIcon(new ColorIconRound(30, color1));
                     } else if (String.valueOf(multi[y][x]).equals("2")) {  //Als vakje wit is
@@ -132,28 +132,21 @@ public class GridView extends AbstractView {
             this.heigth = multi.length;
         }
 
-        private void gameOver() {
+        public void gameOver() {
             if (!model.getGameState()) {
                 for (int x = 0; x < 3; x++) {
                     for (int y = 0; y < 3; y++) {
                         grid[y][x].setEnabled(false);
                     }
                 }
-            }
-        }
-
-        /*private void resetGame(){
-            button = new JButton();
-            button.setBounds(60,10,50,50);
-            add(button);
-            button.addActionListener(this);
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(e.getSource()==button) {
-                    model.newGame();
+            }else{
+                for (int x = 0; x < 3; x++) {
+                    for (int y = 0; y < 3; y++) {
+                        grid[y][x].setEnabled(true);
+                    }
                 }
             }
-        }*/
+        }
 
         public int[][] getGridView(){
             return this.multi;

@@ -96,10 +96,16 @@ public class ModelTicTacToe {
 
     public void newGame(){
         this.multi = new int[tictac][tictac];
+        this.turn = true;
+        this.gamestate = true;
     }
 
     public boolean getGameState(){
         return gamestate;
+    }
+
+    public boolean getTurn(){
+        return turn;
     }
 
 
