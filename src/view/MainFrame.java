@@ -49,7 +49,10 @@ public class MainFrame implements ActionListener {
 
     private void TurnLabel(){
         turnLabel = new JLabel();
-        turnLabel.setBounds(200,20, 80, 50);
+        turnLabel.setBounds(300,20, 300, 50);
+        turnLabel.setText("Black turn");
+        turnLabel.setFont(new Font("Arial", Font.PLAIN, 25));
+        mainFrame.getContentPane().add(turnLabel);
     }
 
     private void UpdateLabels(){
