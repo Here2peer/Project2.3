@@ -12,12 +12,15 @@ public class MainFrame implements ActionListener {
 
     private JFrame mainFrame;
     private JButton button;
+    private JLabel turnLabel;
+
     private ModelTicTacToe model;
     private GridView view;
-    private JLabel turnLabel;
+    private Controller controller;
 
     public MainFrame(Controller controller, ModelTicTacToe model){
                 this.model = model;
+                this.controller = controller;
                 this.view = new GridView(controller, this.model);
 
                 mainFrame=new JFrame("Reversi - ITV2G, Groep 2");
@@ -59,10 +62,9 @@ public class MainFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==button) {
-            this.model.newGame();
+            this.controller.newGame();
             this.view.gameOver();
             this.view.updateView();
-            System.out.println("New Game!");
         }
 
     }

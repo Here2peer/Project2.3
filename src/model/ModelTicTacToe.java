@@ -72,40 +72,46 @@ public class ModelTicTacToe {
             }else{
                 this.multi[y][x] = 2;
             }
+            if(WinState()) {
+                if(turn) {
+                    this.gamestate = false;
+                    System.out.println("Black won.");
+                }else{
+                    this.gamestate = false;
+                    System.out.println("Orange won.");
+                }
+            }else if(drawState()){
+                this.gamestate = false;
+                System.out.println("Draw!");
+            }
+            this.turn = !this.turn;
         }else{
             System.out.println("Impossible!");
         }
-        if(WinState()) {
-            if(turn) {
-                this.gamestate = false;
-                System.out.println("Black won.");
-            }else{
-                this.gamestate = false;
-                System.out.println("Orange won.");
-            }
-        }else if(drawState()){
-            this.gamestate = false;
-            System.out.println("Draw!");
-        }
-        this.turn = !this.turn;
     }
 
     public int[][] getGridView(){
         return this.multi;
     }
 
-    public void newGame(){
-        this.multi = new int[tictac][tictac];
-        this.turn = true;
-        this.gamestate = true;
+    public void setGridView(int[][] grid){
+        this.multi = grid;
     }
 
     public boolean getGameState(){
         return gamestate;
     }
 
+    public void setGameState(boolean state){
+        this.gamestate = state;
+    }
+
     public boolean getTurn(){
         return turn;
+    }
+
+    public void setTurn(boolean i){
+        this.turn = i;
     }
 
 
