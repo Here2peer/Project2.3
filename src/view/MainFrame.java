@@ -33,15 +33,15 @@ public class MainFrame implements ActionListener {
                 mainFrame.setVisible(true);
                 mainFrame.getContentPane().setBackground(Color.white);
                 buttonReset();
+                TurnLabel();
                 view.updateView();
-
             }
 
 
     private void buttonReset(){
         this.view.setBounds(80,80,550,550);
         button = new JButton();
-        button.setBounds(650,100,100,50);
+        button.setBounds(650,80,100,50);
         button.setText("New Game!");
         button.addActionListener(this);
         mainFrame.getContentPane().add(button);
@@ -49,6 +49,7 @@ public class MainFrame implements ActionListener {
 
     private void TurnLabel(){
         turnLabel = new JLabel();
+        turnLabel.setBounds(200,20, 80, 50);
     }
 
     private void UpdateLabels(){
