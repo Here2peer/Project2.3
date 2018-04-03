@@ -45,7 +45,7 @@ public class ModelTicTacToe {
         return false;
     }
 
-    private boolean drawState() {
+    public boolean drawState() {
         for(int xx = 0; xx < 3; xx++){
             for(int yy = 0; yy < 3; yy++) {
                 if(multi[yy][xx] == 0) {
