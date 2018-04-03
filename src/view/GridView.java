@@ -41,12 +41,15 @@ public class GridView extends AbstractView {
         private int width;
         private int heigth;
 
+        int tictac = 3;
+        int orthello = 8;
+
         public GridView(Model model){
             super(model);
-            gridGen(3,3);
+            gridGen(tictac,tictac);
             grid=new JButton[width][heigth]; //Groote van grid maken
             //setStart();
-            initateFrame();
+            initateFrame(tictac,tictac);
         }
 
         private void checkPossibleMoves() {
@@ -73,10 +76,11 @@ public class GridView extends AbstractView {
             multi = tempGrid;
         }
 
-        private void initateFrame() {
+        private void initateFrame(int xx, int yy) {
                 int width = multi.length;
                 int heigth = multi.length;
 
+                setLayout(new GridLayout(xx, yy));
                 for(int y=0; y<multi.length; y++){
                     for(int x=0; x<multi.length; x++){  //Alle vakjes bij langs
 

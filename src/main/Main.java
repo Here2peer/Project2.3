@@ -32,7 +32,7 @@ public class Main{
 		mainFrame.getContentPane().setBackground(Color.white);
 
 		gridView.setBounds(10,00,550,550);
-		gridView.setBackground(Color.WHITE);
+		gridView.setBackground(Color.RED);
 		gridView.updateView();
 
 		controller.setBounds(570,0,200,550);
