@@ -4,9 +4,8 @@ import view.AbstractView;
 
 public class ModelTicTacToe {
 
-    boolean CIRCLE;
-    boolean CROSS;
-    boolean EMPTY;
+    boolean turn = true;
+    boolean gamestate = true;
 
     private int[][] multi;
 
@@ -26,14 +25,12 @@ public class ModelTicTacToe {
 
             if (multi[q][0] == multi[q][1] && multi[q][1] == multi[q][2]) {
                 if (multi[q][0] != 0) {
-                    System.out.println("lijn 36");
                     return true;
                 }
             } //Checkt alle horizontale
 
             if (multi[0][q] == multi[1][q] && multi[1][q] == multi[2][q]) {
                 if (multi[0][q] != 0) {
-                    System.out.println("lijn 41");
                     return true;
                 }
             } //Checkt alle verticale
@@ -41,10 +38,8 @@ public class ModelTicTacToe {
 
         if (multi[1][1] != 0) {
             if (multi[0][0] == multi[1][1] && multi[1][1] == multi[2][2]) {
-                System.out.println("Lijn 49");
                 return true;
             } else if (multi[0][2] == multi[1][1] && multi[1][1] == multi[2][0]) {
-                System.out.println("Lijn 55");
                 return true;
             }  //Checkt alle schuine
 
@@ -52,7 +47,7 @@ public class ModelTicTacToe {
         return false;
     }
 
-    private boolean DrawState() {
+    private boolean drawState() {
         for(int xx = 0; xx < 3; xx++){
             for(int yy = 0; yy < 3; yy++) {
                 if(multi[yy][xx] == 0) {
@@ -70,8 +65,41 @@ public class ModelTicTacToe {
         this.heigth = multi.length;
     }
 
+    public void move(int y, int x){
+        if(this.multi[y][x] == 0){
+            if(this.turn) {
+                this.multi[y][x] = 1;
+            }else{
+                this.multi[y][x] = 2;
+            }
+        }else{
+            System.out.println("Impossible!");
+        }
+        if(WinState()) {
+            if(turn) {
+                this.gamestate = false;
+                System.out.println("Black won.");
+            }else{
+                this.gamestate = false;
+                System.out.println("Orange won.");
+            }
+        }else if(drawState()){
+            this.gamestate = false;
+            System.out.println("Draw!");
+        }
+        this.turn = !this.turn;
+    }
+
     public int[][] getGridView(){
         return this.multi;
+    }
+
+    public void newGame(){
+        this.multi = new int[tictac][tictac];
+    }
+
+    public boolean getGameState(){
+        return gamestate;
     }
 
 

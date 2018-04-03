@@ -29,10 +29,10 @@ public class Main{
 		mainFrame.getContentPane().setBackground(Color.white);
 
 		view.setBounds(80,80,550,550);
-		view.setBackground(Color.RED);
+		//view.setBackground(Color.RED);
 		view.updateView();
 
 		controller.setBounds(740,80,200,550);
-		controller.setBackground(Color.BLUE);
+		//controller.setBackground(Color.BLUE);
 	}
 }
