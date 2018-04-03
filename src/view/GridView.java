@@ -20,7 +20,7 @@ public class GridView extends AbstractView {
                 0 -> Leeg vakje
                 1 -> Zwart vakje
                 2 -> Wit vakje
-                3 -> mogelijk vakje
+                3 -> Mogelijk vakje
 
                 grid[][] = Alle JButtons
                 multi[][] = Waarden van JButtons
