@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 public class MainFrame implements ActionListener {
 
     private JFrame mainFrame;
-    private JButton button;
+    private JButton resetButton;
     private JLabel turnLabel;
 
     private ModelTicTacToe model;
@@ -22,6 +22,7 @@ public class MainFrame implements ActionListener {
                 this.model = model;
                 this.controller = controller;
                 this.view = new GridView(controller, this.model);
+                this.view.setBounds(80,80,550,550);
 
                 mainFrame=new JFrame("Game - ITV2G, Groep 2");
                 mainFrame.setSize(800, 800);
@@ -31,31 +32,31 @@ public class MainFrame implements ActionListener {
                 mainFrame.getContentPane().add(controller);
                 mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 mainFrame.setVisible(true);
-                mainFrame.getContentPane().setBackground(Color.white);
-                buttonReset();
+                mainFrame.getContentPane().setBackground(Color.WHITE);
+                
+                addResetButton();
+                createStateLabel();
+
                 view.updateView();
-                controller.createJLabel();
-                createLabel();
             }
 
 
-    private void buttonReset(){
-        this.view.setBounds(80,80,550,550);
-        button = new JButton();
-        button.setBounds(650,80,100,50);
-        button.setText("New Game!");
-        button.addActionListener(this);
-        mainFrame.getContentPane().add(button);
+    private void addResetButton(){
+        resetButton = new JButton();
+        resetButton.setBounds(650,80,100,50);
+        resetButton.setText("New Game!");
+        resetButton.addActionListener(this);
+        mainFrame.getContentPane().add(resetButton);
     }
 
-    private void createLabel() {
+    private void createStateLabel() {
         mainFrame.getContentPane().add(controller.createJLabel());
         controller.updateLabel();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==button) {
+        if(e.getSource()==resetButton) { //Als de resetbutton wordt gebruikt
             this.controller.newGame();
             this.view.gameOver();
             this.view.updateView();

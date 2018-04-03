@@ -22,12 +22,10 @@ public class Controller extends AbstractController{
     }
 
     public JLabel createJLabel() {
-        System.out.println("black aan de beurt ->" + model.getTurn());
-
         turnLabel = new JLabel();
-        turnLabel.setBounds(300,20, 300, 50);
+        turnLabel.setBounds(280,20, 300, 50);
         turnLabel.setText("-");
-        turnLabel.setFont(new Font("Arial", Font.PLAIN, 25));
+        turnLabel.setFont(new Font("SANS_SERIF", Font.PLAIN, 25));
 
         return turnLabel;
     }

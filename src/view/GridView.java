@@ -149,7 +149,7 @@ public class GridView extends AbstractView {
                         grid[y][x].setEnabled(false);
                     }
                 }
-            }else{
+            } else {
                 for (int x = 0; x < 3; x++) {
                     for (int y = 0; y < 3; y++) {
                         grid[y][x].setEnabled(true);
