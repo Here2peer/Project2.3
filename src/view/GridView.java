@@ -20,12 +20,13 @@ public class GridView extends AbstractView {
                 0 -> Leeg vakje
                 1 -> Zwart vakje
                 2 -> Wit vakje
+                3 -> mogelijk vakje
 
                 grid[][] = Alle JButtons
                 multi[][] = Waarden van JButtons
 
-                multi[3][5] ->  Y = 3 (Multi begint bij 0, dus is 3e vakje van links naar rechts)
-                                X = 5 (Multi begint bij 0, dus is 6e vakje van boven naar onder)
+                multi[3][5] ->  Y = 3 (Multi begint bij 0, dus is 3e vakje van boven naar onder)
+                                X = 5 (Multi begint bij 0, dus is 6e vakje van links naar rechts)
 
                 Afbeelding met alle vakjes: https://ibb.co/k5HhKn
 
