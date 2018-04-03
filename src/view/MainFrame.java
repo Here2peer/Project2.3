@@ -33,8 +33,9 @@ public class MainFrame implements ActionListener {
                 mainFrame.setVisible(true);
                 mainFrame.getContentPane().setBackground(Color.white);
                 buttonReset();
-                TurnLabel();
                 view.updateView();
+                controller.createJLabel();
+                createLabel();
             }
 
 
@@ -47,20 +48,9 @@ public class MainFrame implements ActionListener {
         mainFrame.getContentPane().add(button);
     }
 
-    private void TurnLabel(){
-        turnLabel = new JLabel();
-        turnLabel.setBounds(300,20, 300, 50);
-        turnLabel.setText("Black turn");
-        turnLabel.setFont(new Font("Arial", Font.PLAIN, 25));
-        mainFrame.getContentPane().add(turnLabel);
-    }
-
-    private void UpdateLabels(){
-        if(this.model.getTurn()) {
-            turnLabel.setText("It's black turn.");
-        }else{
-            turnLabel.setText("It's orange turn.");
-        }
+    private void createLabel() {
+        mainFrame.getContentPane().add(controller.createJLabel());
+        controller.updateLabel();
     }
 
     @Override
@@ -70,6 +60,5 @@ public class MainFrame implements ActionListener {
             this.view.gameOver();
             this.view.updateView();
         }
-
     }
 }
