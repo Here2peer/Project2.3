@@ -45,7 +45,8 @@ public class Controller extends AbstractController implements ActionListener {
                 System.out.println("y = " + textFieldValues[0] + " - x = " + textFieldValues[1]);
                 int tempY = Integer.parseInt(textFieldValues[0]);
                 int tempX = Integer.parseInt(textFieldValues[1]);
-                GridView.changeGrid(2, tempY, tempX);
+                //GridView.changeGrid(2, tempY, tempX);
+                System.out.println("NOTHING");
             } else {
                 System.out.println("Textfield is empty!");
             }

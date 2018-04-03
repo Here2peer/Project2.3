@@ -32,26 +32,20 @@ public class GridView extends AbstractView {
 
          */
 
-        static JButton[][] grid; //names the grid of buttons
+        private JButton[][] grid; //names the grid of buttons
+
 
         //2D Array met waarden van vakjes erin
-        static int[][] multi = new int[][]{
-                { 0, 0, 0, 0, 0, 0, 0, 0, },
-                { 0, 0, 0, 0, 0, 0, 0, 0, },
-                { 0, 0, 0, 0, 0, 0, 0, 0, },
-                { 0, 0, 0, 1, 2, 0, 0, 0, },
-                { 0, 0, 0, 2, 1, 0, 0, 0, },
-                { 0, 0, 0, 0, 0, 0, 0, 0, },
-                { 0, 0, 0, 0, 0, 0, 0, 0, },
-                { 0, 0, 0, 0, 0, 0, 0, 0, }
-        };
+        private int[][] multi;
 
-        int width = multi.length;
-        int heigth = multi.length;
+        private int width;
+        private int heigth;
 
         public GridView(Model model){
             super(model);
+            gridGen(3,3);
             grid=new JButton[width][heigth]; //Groote van grid maken
+            //setStart();
             initateFrame();
         }
 
@@ -140,10 +134,10 @@ public class GridView extends AbstractView {
             }
         }
 
-        public static void changeGrid(int color, int tempy, int tempx) {
+        public void changeGrid(int color, int tempy, int tempx) {
                 if(color==0) {
                     grid[tempy][tempx].setIcon(new ColorIconRound(30,Color.WHITE));
-                    multi[tempy][tempx] = 1;
+                    this.multi[tempy][tempx] = 1;
                 } else if (color==1) {
                     grid[tempy][tempx].setIcon(new ColorIconRound(30,Color.BLACK));
                     multi[tempy][tempx] = 1;
@@ -153,6 +147,20 @@ public class GridView extends AbstractView {
                 } else {
                     System.out.println("Color code incorrect!");
                 }
+        }
+
+        private void setStart(){
+            multi[3][3] = 1;
+            multi[4][3] = 2;
+            multi[3][4] = 2;
+            multi[4][4] = 1;
+        }
+
+        private void gridGen(int x, int y){
+            //2D Array met waarden van vakjes erin
+            this.multi = new int[x][y];
+            this.width = multi.length;
+            this.heigth = multi.length;
         }
 }
 
