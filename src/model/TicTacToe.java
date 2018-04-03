@@ -10,24 +10,11 @@ public class TicTacToe {
 
     private int[][] multi;
 
-
-    /*
-
-
-
-     */
-
-    public TicTacToe(AbstractView griedView){
-        System.out.println(WinState());
+    public TicTacToe(int[][] gridView){
+        this.multi = gridView;
     }
 
     private boolean WinState() {
-
-        int[][] multi = new int[][]{
-                {1, 0, 0},
-                {1, 0, 0},
-                {1, 0, 0}
-        };
 
         for (int q = 0; q < 3; q++) {
 
@@ -60,9 +47,14 @@ public class TicTacToe {
     }
 
     private boolean DrawState() {
-        
-
-        return false
+        for(int xx = 0; xx < 3; xx++){
+            for(int yy = 0; yy < 3; yy++) {
+                if(multi[yy][xx] == 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 

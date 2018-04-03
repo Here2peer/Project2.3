@@ -19,26 +19,25 @@ public class Main{
 	
 	public Main() {
 		model = new Model();
-		gridView = new GridView(model);
+		GridView gridview = new GridView(model);
 		controller = new Controller(model);
 
 		mainFrame=new JFrame("Reversi - ITV2G, Groep 2");
 		mainFrame.setSize(800, 600);
 		mainFrame.setResizable(true);
 		mainFrame.setLayout(null);
-		mainFrame.getContentPane().add(gridView);
+		mainFrame.getContentPane().add(gridview);
         mainFrame.getContentPane().add(controller);
 		mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		mainFrame.setVisible(true);
 		mainFrame.getContentPane().setBackground(Color.white);
 
-		gridView.setBounds(10,00,550,550);
-		gridView.setBackground(Color.WHITE);
-		gridView.updateView();
+		gridview.setBounds(10,00,550,550);
+		gridview.setBackground(Color.WHITE);
+		gridview.updateView();
 
 		controller.setBounds(570,0,200,550);
 		controller.setBackground(Color.WHITE);
-
-		TicTacToe game = new TicTacToe(gridView);
+		TicTacToe game = new TicTacToe(gridview.getGridView());
 	}
 }

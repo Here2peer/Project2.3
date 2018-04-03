@@ -141,5 +141,9 @@ public class GridView extends AbstractView {
             this.width = multi.length;
             this.heigth = multi.length;
         }
+
+        public int[][] getGridView(){
+            return this.multi;
+        }
 }
 
