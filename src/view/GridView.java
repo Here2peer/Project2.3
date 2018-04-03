@@ -76,7 +76,6 @@ public class GridView extends AbstractView {
                         grid[y][x].addActionListener(new ActionListener(){
                             public void actionPerformed(ActionEvent e){
                                 model.move(finalY, finalX);
-                                colorFrames();
                                 gameOver();
                             }
                         });
@@ -154,6 +153,7 @@ public class GridView extends AbstractView {
 
     @Override
     public void updateView() {
+            colorFrames();
         repaint();
     }
 }

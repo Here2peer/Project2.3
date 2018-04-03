@@ -55,13 +55,12 @@ public class MainFrame implements ActionListener {
             turnLabel.setText("It's orange turn.");
         }
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==button) {
             this.model.newGame();
             this.view.gameOver();
-            this.view.colorFrames();
             this.view.updateView();
             System.out.println("New Game!");
         }
