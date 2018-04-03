@@ -13,6 +13,7 @@ abstract public class Model {
 
 	public void notifyViews() {
 		for(View v: views) v.updateView();
+
 	}
 
 }

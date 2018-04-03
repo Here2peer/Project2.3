@@ -2,7 +2,7 @@ package model;
 
 import view.AbstractView;
 
-public class TicTacToe {
+public class ModelTicTacToe {
 
     boolean CIRCLE;
     boolean CROSS;
@@ -10,8 +10,14 @@ public class TicTacToe {
 
     private int[][] multi;
 
-    public TicTacToe(int[][] gridView){
-        this.multi = gridView;
+    int width;
+    int heigth;
+
+    int tictac = 3;
+    int orthello = 8;
+
+    public ModelTicTacToe(){
+        gridGen(tictac);
     }
 
     private boolean WinState() {
@@ -55,6 +61,17 @@ public class TicTacToe {
             }
         }
         return true;
+    }
+
+    private void gridGen(int gametype){
+        //2D Array met waarden van vakjes erin
+        this.multi = new int[gametype][gametype];
+        this.width = multi.length;
+        this.heigth = multi.length;
+    }
+
+    public int[][] getGridView(){
+        return this.multi;
     }
 
 

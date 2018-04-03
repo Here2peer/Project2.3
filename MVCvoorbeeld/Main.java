@@ -6,6 +6,7 @@ import nl.mijnbedrijf.geldwisselapp.model.ModelGeldwisselapp;
 import nl.mijnbedrijf.geldwisselapp.view.ViewGeldwisselapp;
 
 public class Main extends Application {
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		primaryStage.setTitle("Geld wissel app");

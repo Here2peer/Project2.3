@@ -1,6 +1,8 @@
 package view;
 
 import model.Model;
+import model.ModelTicTacToe;
+import controller.*;
 
 import javax.swing.JButton; //imports JButton library
 import java.awt.event.ActionEvent;
@@ -44,8 +46,8 @@ public class GridView extends AbstractView {
         int tictac = 3;
         int orthello = 8;
 
-        public GridView(Model model){
-            super(model);
+        public GridView(Controller controller, ModelTicTacToe model){
+            super(controller, model);
             gridGen(tictac);
             grid=new JButton[width][heigth]; //Groote van grid maken
             //setStart();
@@ -145,5 +147,10 @@ public class GridView extends AbstractView {
         public int[][] getGridView(){
             return this.multi;
         }
+
+    @Override
+    public void updateView() {
+        repaint();
+    }
 }
 

@@ -13,7 +13,7 @@ public class Controller extends AbstractController implements ActionListener {
     private JButton button;
     private JLabel whosTurn;
 
-    public Controller(Model model) {
+    public Controller(ModelTicTacToe model) {
         super(model);
         setSize(200, 600);
 
