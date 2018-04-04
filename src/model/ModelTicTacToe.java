@@ -19,7 +19,7 @@ public class ModelTicTacToe {
         gridGen(tictac);
     }
 
-    private boolean WinState() {
+    public boolean WinState() {
 
         for (int q = 0; q < 3; q++) {
 
@@ -80,7 +80,7 @@ public class ModelTicTacToe {
                     this.gamestate = false;
                     System.out.println("Orange won.");
                 }
-            }else if(drawState()){
+            } else if(drawState()){
                 this.gamestate = false;
                 System.out.println("Draw!");
             }

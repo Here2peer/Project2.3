@@ -168,24 +168,27 @@ public class GridView extends AbstractView {
 
     public void updateLabel() {
 
-            if (!this.model.getGameState()) {
+            if (this.model.WinState()) { //Als iemand gewonnen heeft
                 if (this.model.getTurn()) {
                     turnLabel.setText("Orange won!");
                 } else {
                     turnLabel.setText("Black won!");
                 }
-            } else {
-                if (this.model.drawState()) {
-                        turnLabel.setText("Game draw!");
-                } else {
-                    if (this.model.getTurn()) {
-                        turnLabel.setText("It's black turn.");
-                    } else {
-                        turnLabel.setText("It's orange turn.");
-                    }
+            } else if (model.drawState()){
+                if(model.drawState()) {
+                    turnLabel.setText("Draw!");
                 }
-        }
+            } else {
+                if (this.model.getTurn()) { //True als black aan de beurt is
+                    turnLabel.setText("It's black turn.");
+                } else {
+                    turnLabel.setText("It's orange turn.");
+                }
+            }
+
     }
+
+
 
         public int[][] getGridView(){
             return this.multi;
