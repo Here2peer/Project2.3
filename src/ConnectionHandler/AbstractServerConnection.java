@@ -47,7 +47,7 @@ public interface AbstractServerConnection {
      */
     void forfeit();
 
-    public boolean isPlayer1IsHuman();
+    boolean isPlayer1IsHuman();
 
-    public void setPlayer1IsHuman(boolean player1IsHuman);
+    void setPlayer1IsHuman(boolean player1IsHuman);
 }
