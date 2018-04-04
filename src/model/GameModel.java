@@ -3,14 +3,14 @@ package model;
 import controller.Controller;
 
 public class GameModel{
-    private ModelTicTacToe tictactoe;
+    private TicTacToe tictactoe;
     private ModelOthello othello;
     private Controller controller;
     public GameModel(){
     }
 
-    public ModelTicTacToe getTicTacToe(){
-        tictactoe = new ModelTicTacToe();
+    public TicTacToe getTicTacToe(){
+        tictactoe = new TicTacToe();
         return tictactoe;
     }
 

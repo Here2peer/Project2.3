@@ -1,6 +1,6 @@
-package model;
+package Game;
 
-public abstract class AbstractGameModel {
+public abstract class AbstractGame {
     boolean turn = true;
     boolean gamestate = true;
 
@@ -45,5 +45,7 @@ public abstract class AbstractGameModel {
     public void setTurn(boolean i){
         this.turn = i;
     }
+
+    public abstract void newGame();
 
 }

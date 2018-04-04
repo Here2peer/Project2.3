@@ -1,13 +1,13 @@
 package controller;
-import model.*;
+import Game.AbstractGame;
 
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public abstract class AbstractController extends JPanel {
-	protected AbstractGameModel model;
+	protected AbstractGame model;
 
-	public AbstractController(AbstractGameModel model) {
+	public AbstractController(AbstractGame model) {
 		this.model = model;
 	}
 

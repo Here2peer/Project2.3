@@ -1,6 +1,6 @@
 package main;
 
-import model.ModelTicTacToe;
+import model.TicTacToe;
 import controller.*;
 import view.MainView;
 
@@ -8,7 +8,7 @@ import view.MainView;
 public class Main{
 
 	public Main() {
-		ModelTicTacToe model = new ModelTicTacToe();
+		TicTacToe model = new TicTacToe();
 		Controller controller = new Controller(model);
 		MainView mainView = new MainView(controller, model);
 	}

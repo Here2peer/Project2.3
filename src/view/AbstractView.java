@@ -1,14 +1,12 @@
 package view;
 
-import model.AbstractGameModel;
-import model.Model;
-import model.ModelTicTacToe;
+import Game.AbstractGame;
 import controller.*;
 
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public abstract class AbstractView<C extends Controller, M extends AbstractGameModel> extends JPanel {
+public abstract class AbstractView<C extends Controller, M extends AbstractGame> extends JPanel {
 	protected C controller;
 	protected M model;
 
@@ -19,7 +17,7 @@ public abstract class AbstractView<C extends Controller, M extends AbstractGameM
 		this.model = model;
 	}
 	
-	public AbstractGameModel getModel() {
+	public AbstractGame getModel() {
 		return model;
 	}
 	

@@ -1,8 +1,8 @@
 package model;
 
-import view.AbstractView;
+import Game.AbstractGame;
 
-public class ModelTicTacToe extends AbstractGameModel{
+public class TicTacToe extends AbstractGame {
 
     boolean turn = true;
     boolean gamestate = true;
@@ -14,7 +14,7 @@ public class ModelTicTacToe extends AbstractGameModel{
 
     int gridsize = 3;
 
-    public ModelTicTacToe(){
+    public TicTacToe(){
         gridGen(gridsize);
     }
 
@@ -92,6 +92,13 @@ public class ModelTicTacToe extends AbstractGameModel{
 
     public void setGridView(int[][] grid){
         this.multi = grid;
+    }
+
+    public void newGame() {
+        this.multi = new int[gridsize][gridsize];
+        setGridView(multi);
+        setTurn(true);
+        setGameState(true);
     }
 
     public boolean getGameState(){
