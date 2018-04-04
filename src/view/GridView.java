@@ -42,12 +42,12 @@ public class GridView extends AbstractView {
         private int width;
         private int heigth;
 
-        int tictac = 3;
+        int tictac = 8;
         int orthello = 8;
 
         private JLabel turnLabel;
 
-    public GridView(Controller controller, ModelTicTacToe model){
+        public GridView(Controller controller, ModelOthello model){
             super(controller, model);
             gridGen(tictac);
             grid=new JButton[width][heigth]; //Groote van grid maken
@@ -194,7 +194,7 @@ public class GridView extends AbstractView {
     public void updateView() {
             colorFrames();
             updateLabel();
-        repaint();
+            repaint();
     }
 }
 

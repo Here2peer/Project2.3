@@ -1,12 +1,33 @@
 package model;
+import view.*;
 
 import view.AbstractView;
 
+import javax.swing.*;
+
 public class ModelOthello {
 
+    private ModelOthelloBot modelOthelloBot;
 
-    private void checkPossibleMoves(AbstractView gridView) {
-        /*int[][] tempGrid = multi;
+    boolean turn = true;
+    boolean gamestate = true;
+
+    private int[][] multi;
+
+    int width;
+    int heigth;
+
+    int tictac = 3;
+    int orthello = 8;
+
+
+    public ModelOthello(ModelOthelloBot model) {
+        this.modelOthelloBot=model;
+        gridGen(8);
+    }
+
+    private void checkPossibleMoves() {
+        int[][] tempGrid = multi;
 
         for (int y = 0; y < tempGrid.length; y++) {
             for (int x = 0; x < tempGrid.length; x++) {  //Alle vakjes bij langs
@@ -27,5 +48,21 @@ public class ModelOthello {
             }
         }
         multi = tempGrid;
-    */}
+    }
+
+    public int[][] getGridView(){
+        return this.multi;
+    }
+
+    public void setGridView(int[][] grid){
+        this.multi = grid;
+    }
+
+    private void gridGen(int gametype){
+        //2D Array met waarden van vakjes erin
+        this.multi = new int[gametype][gametype];
+        this.width = multi.length;
+        this.heigth = multi.length;
+    }
+
 }

@@ -21,7 +21,7 @@ public class MainFrame implements ActionListener {
     public MainFrame(Controller controller, ModelTicTacToe model){
                 this.model = model;
                 this.controller = controller;
-                this.view = new GridView(controller, this.model);
+                this.view = new GridView(this.controller, this.model);
                 this.view.setBounds(80,80,550,550);
 
                 mainFrame=new JFrame("Game - ITV2G, Groep 2");
