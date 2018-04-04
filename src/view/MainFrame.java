@@ -50,8 +50,8 @@ public class MainFrame implements ActionListener {
     }
 
     private void createStateLabel() {
-        mainFrame.getContentPane().add(controller.createJLabel());
-        controller.updateLabel();
+        mainFrame.getContentPane().add(view.createJLabel());
+        view.updateLabel();
     }
 
     @Override

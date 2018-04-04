@@ -3,7 +3,7 @@ package view;
 import model.ModelTicTacToe;
 import controller.*;
 
-import javax.swing.JButton; //imports JButton library
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.*;
@@ -45,7 +45,9 @@ public class GridView extends AbstractView {
         int tictac = 3;
         int orthello = 8;
 
-        public GridView(Controller controller, ModelTicTacToe model){
+        private JLabel turnLabel;
+
+    public GridView(Controller controller, ModelTicTacToe model){
             super(controller, model);
             gridGen(tictac);
             grid=new JButton[width][heigth]; //Groote van grid maken
@@ -74,7 +76,6 @@ public class GridView extends AbstractView {
                         grid[y][x].addActionListener(new ActionListener(){
                             public void actionPerformed(ActionEvent e){
                                 model.move(finalY, finalX);
-                                controller.updateLabel();
                                 updateView();
                                 gameOver();
                             }
@@ -156,6 +157,35 @@ public class GridView extends AbstractView {
             }
         }
 
+    public JLabel createJLabel() {
+        turnLabel = new JLabel();
+        turnLabel.setBounds(280, 20, 300, 50);
+        turnLabel.setText("-");
+        turnLabel.setFont(new Font("SANS_SERIF", Font.PLAIN, 25));
+
+        return turnLabel;
+    }
+
+    public void updateLabel() {
+        if (this.model.drawState()) {
+            turnLabel.setText("Game draw!");
+        } else {
+            if (!this.model.getGameState()) {
+                if (this.model.getTurn()) {
+                    turnLabel.setText("Orange won!");
+                } else {
+                    turnLabel.setText("Black won!");
+                }
+            } else {
+                if (this.model.getTurn()) {
+                    turnLabel.setText("It's black turn.");
+                } else {
+                    turnLabel.setText("It's orange turn.");
+                }
+            }
+        }
+    }
+
         public int[][] getGridView(){
             return this.multi;
         }
@@ -163,6 +193,7 @@ public class GridView extends AbstractView {
     @Override
     public void updateView() {
             colorFrames();
+            updateLabel();
         repaint();
     }
 }
