@@ -20,7 +20,7 @@ public abstract class AbstractGame {
         this.heigth = multi.length;
     }
 
-    public abstract  void move(int y, int x);
+    public abstract void move(int y, int x);
 
     public int[][] getGridView(){
         return this.multi;
