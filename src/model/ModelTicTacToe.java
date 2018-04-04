@@ -2,7 +2,7 @@ package model;
 
 import view.AbstractView;
 
-public class ModelTicTacToe {
+public class ModelTicTacToe extends AbstractGameModel{
 
     boolean turn = true;
     boolean gamestate = true;
@@ -12,15 +12,13 @@ public class ModelTicTacToe {
     int width;
     int heigth;
 
-    int tictac = 3;
-    int orthello = 8;
+    int gridsize = 3;
 
     public ModelTicTacToe(){
-        gridGen(tictac);
+        gridGen(gridsize);
     }
 
-    private boolean WinState() {
-
+    public boolean WinState() {
         for (int q = 0; q < 3; q++) {
 
             if (multi[q][0] == multi[q][1] && multi[q][1] == multi[q][2]) {

@@ -1,5 +1,6 @@
 package view;
 
+import model.AbstractGameModel;
 import model.ModelTicTacToe;
 import controller.*;
 
@@ -47,7 +48,7 @@ public class GridView extends AbstractView {
 
         private JLabel turnLabel;
 
-    public GridView(Controller controller, ModelTicTacToe model){
+    public GridView(Controller controller, AbstractGameModel model){
             super(controller, model);
             gridGen(tictac);
             grid=new JButton[width][heigth]; //Groote van grid maken
