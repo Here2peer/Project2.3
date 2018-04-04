@@ -19,31 +19,31 @@ public class MainView implements ActionListener {
     private Controller controller;
 
     public MainView(Controller controller, ModelTicTacToe model){
-                this.model = model;
-                this.controller = controller;
-                this.view = new GridView(controller, this.model);
-                this.view.setBounds(80,80,550,550);
+            this.model = model;
+            this.controller = controller;
+            this.view = new GridView(controller, this.model);
+            this.view.setBounds(80,100,550,550);
 
-                mainFrame=new JFrame("Game - ITV2G, Groep 2");
-                mainFrame.setSize(800, 800);
-                mainFrame.setResizable(true);
-                mainFrame.setLayout(null);
-                mainFrame.getContentPane().add(view);
-                mainFrame.getContentPane().add(controller);
-                mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                mainFrame.setVisible(true);
-                mainFrame.getContentPane().setBackground(Color.WHITE);
-                
-                addResetButton();
-                createStateLabel();
+            mainFrame=new JFrame("Game - ITV2G, Groep 2");
+            mainFrame.setSize(730, 800);
+            mainFrame.setResizable(true);
+            mainFrame.setLayout(null);
+            mainFrame.getContentPane().add(view);
+            mainFrame.getContentPane().add(controller);
+            mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            mainFrame.setVisible(true);
+            mainFrame.getContentPane().setBackground(Color.WHITE);
 
-                view.updateView();
-            }
+            addResetButton();
+            createStateLabel();
+
+            view.updateView();
+        }
 
 
     private void addResetButton(){
         resetButton = new JButton();
-        resetButton.setBounds(650,80,100,50);
+        resetButton.setBounds(520,30,100,40);
         resetButton.setText("New Game!");
         resetButton.addActionListener(this);
         mainFrame.getContentPane().add(resetButton);
