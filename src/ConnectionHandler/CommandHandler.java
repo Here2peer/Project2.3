@@ -8,21 +8,26 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Rick Huizing on 3-4-2018.
+ * provides methods to use the protocol dictated by the server
  */
 public class CommandHandler {
     private BlockingQueue<String> inBoundMessageQueue;
-    private Client client;
+    private Connection connection;
 
-    CommandHandler(BlockingQueue<String> inBoundMessageQueue, Client client) {
+    public CommandHandler(BlockingQueue<String> inBoundMessageQueue, Connection connection) {
         this.inBoundMessageQueue = inBoundMessageQueue;
-        this.client = client;
+        this.connection = connection;
     }
 
-
-    boolean subscribe(String gameType) {
+    /**
+     * subscribe to a game type.
+     * @param gameType type of game, as returned by getGameList.
+     * @return true if subscription succesful.
+     */
+    public boolean subscribe(String gameType) {
         String returnMessage = "";
         try {
-            client.executeCommand("subscribe " + gameType);
+            connection.sendMessage("subscribe " + gameType);
             returnMessage = inBoundMessageQueue.take();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -40,9 +45,14 @@ public class CommandHandler {
         return false;
     }
 
+    /**
+     * disconnect connection from server.
+     * @return true if command successful.
+     */
     boolean exit() {
         try {
-            client.executeCommand("exit");
+            connection.sendMessage("exit");
+            System.out.println("exit: " + inBoundMessageQueue.poll(250, TimeUnit.MILLISECONDS));
             return true;
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -50,11 +60,15 @@ public class CommandHandler {
         }
     }
 
-    ArrayList<String> getPlayerList() {
+    /**
+     * returns a list of online 'challengable' players.
+     * @return ArrayList with playernames.
+     */
+    public ArrayList<String> getPlayerList() {
         ArrayList<String> gameList = new ArrayList<>(3);
         String returnMessage;
         try {
-            client.executeCommand("get playerlist");
+            connection.sendMessage("get playerlist");
             returnMessage = inBoundMessageQueue.take();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -75,11 +89,15 @@ public class CommandHandler {
         return gameList;
     }
 
-    ArrayList<String> getGameList() {
+    /**
+     * @return list of games playable on server at this moment.
+     * returns and empty array on failure.
+     */
+    public ArrayList<String> getGameList() {
         ArrayList<String> gameList = new ArrayList<>(3);
         String returnMessage;
         try {
-            client.executeCommand("get gamelist");
+            connection.sendMessage("get gamelist");
             returnMessage = inBoundMessageQueue.take();
             //System.out.println(returnMessage);
         } catch (InterruptedException e) {
@@ -99,10 +117,16 @@ public class CommandHandler {
                 return arrayFromResponse(returnMessage, 13);
             }
         }
-        System.out.println("gamelist failed");
+        System.err.println("gamelist failed");
         return gameList;
     }
 
+    /**
+     * creates an array from a server's message containing an array.
+     * @param response message from server.
+     * @param startOfList index of the start of the array in the response message.
+     * @return list of the received information.
+     */
     private ArrayList<String> arrayFromResponse(String response, int startOfList) {
         response = response.substring(startOfList);
         response = response.replace("[", "");
@@ -111,9 +135,15 @@ public class CommandHandler {
         return new ArrayList<String>(Arrays.asList(response.split(",")));
     }
 
-    boolean login(String playerName) {
+    /**
+     * logs in player with provided playername.
+     * adds an x to the end of the playername recursively if the playername already is online.
+     * @param playerName your username.
+     * @return true on success, false on failure.
+     */
+    public boolean login(String playerName) {
         try {
-            client.executeCommand("login " + playerName);
+            connection.sendMessage("login " + playerName);
             Settings.setPlayerName(playerName);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -141,6 +171,11 @@ public class CommandHandler {
         return false;
     }
 
+    /**
+     * specialised message queue read method because for some reason 2 login responses are sometimes parsed as one sentence.
+     * it emmpties the inBoundMessageQueue
+     * @return contents of inBoundMessageQueue
+     */
     LinkedList<String> readInboundMessageQueue() {
         String output = "s";
         LinkedList<String> outputs = new LinkedList<String>();
@@ -159,10 +194,13 @@ public class CommandHandler {
         return outputs;
     }
 
-    void forfeit() {
+    /**
+     * forfeits the current match
+     */
+    public void forfeit() {
         String returnMessage = "";
         try {
-            client.executeCommand("forfeit");
+            connection.sendMessage("forfeit");
             returnMessage = inBoundMessageQueue.take();
         } catch (InterruptedException e) {
             e.printStackTrace();

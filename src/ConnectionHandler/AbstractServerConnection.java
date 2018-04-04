@@ -17,6 +17,7 @@ public interface AbstractServerConnection {
      */
     void registerPLayer(AbstractPlayer player);
 
+    AbstractPlayer getPlayer();
     /**
      * logs you in with the playername in  {@link Settings}
      *

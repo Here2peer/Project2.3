@@ -1,157 +1,193 @@
 package ConnectionHandler;
 
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.nio.ByteBuffer;
-import java.nio.channels.SocketChannel;
-import java.util.Scanner;
+import model.AbstractPlayer;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-class Client {
-    private SocketChannel socket;
+/**
+ * Created by Rick Huizing on 3-4-2018.
+ * represents the connection with the server.
+ */
+public class Client implements AbstractServerConnection {
+    private BlockingQueue<String> inBoundMessageQueue = new LinkedBlockingQueue<String>();
+    private CommandHandler commandHandler;
 
-    private ByteBuffer inputBuffer = ByteBuffer.allocate(256);
-    private ByteBuffer outputBuffer = ByteBuffer.allocate(182);
+    private ArrayList<String> gameList;
+    private ArrayList<String> playerList;
 
-    private BlockingQueue<String> inBoundMessageQueue;
+    private boolean loggedIn = false;
+    private boolean waitingForGame = false;
+    private boolean inGame = false;
+    private boolean yourTurn = false;
+    private String gameType = "notInGame";
+    private String opponentName = "";
 
+    private boolean player1IsHuman = true;
+    private AbstractPlayer playerOne;
 
-    Client(BlockingQueue<String> inBoundMessageQueue) {
-        this.inBoundMessageQueue = inBoundMessageQueue;
+    private LinkedList<String> moves = new LinkedList<>();
 
-        initialiseClient();
+    Connection connection;
+
+    Client(){
+        //Connection connection = new Connection(inBoundMessageQueue);
+        connection = new Connection(inBoundMessageQueue);
+        commandHandler = new CommandHandler(inBoundMessageQueue, connection);
+        if(login()){
+            if(subscribe(getGameList().get(0))){
+                System.out.println("waitForGame");
+                waitForGame();
+            }
+        }
     }
 
-    private void initialiseClient() {
-        initialiseConnection();
-        new InputReader();              //todo: make this obsolete
-        new Thread(() -> {
-            while(true) {
-                readChannel();
-            }
-        }).start();
+    private void waitForGame() {
         try {
-            System.out.println(inBoundMessageQueue.take());
-            System.out.println(inBoundMessageQueue.take());
+            String gameMessage = inBoundMessageQueue.take();
+            //System.out.println(gameMessage);
+            if(gameMessage.startsWith("SVR GAME MATCH")){
+                waitingForGame = false;
+                inGame(gameMessage);
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    void initialiseConnection() {
-        boolean initialised = false;
-        while (!initialised) {
-            try {
-                socket = SocketChannel.open();
-                socket.connect(new InetSocketAddress(Settings.SERVER_IP, Settings.PORTNUMBER));
-                socket.configureBlocking(true);
-            } catch (IOException e) {
-                //e.printStackTrace();
-                System.err.println("could'nt open connection");               //uh oh, probeer het nog eens until return true
-                initialised = false;
+    private void inGame(String gameMessage) {
+        inGame = true;
+        Matcher matcher = Pattern.compile("\"([^\"]*)\"").matcher(gameMessage);
+        if(matcher.find()){
+            String firstPlayerToMove = matcher.group();
+            if(matcher.find()){
+                gameType = matcher.group();
+                if(matcher.find()){
+                    opponentName = matcher.group();
+                }
             }
-            initialised = true;
+            if(!firstPlayerToMove.equals(opponentName)){
+                System.out.println("you start the game");
+                moves.addLast("MOVE 19");
+                moves.addLast("MOVE 17");
+            }else{
+                System.out.println("you do not start the game");
+                moves.addLast("MOVE 18");
+                moves.addLast("MOVE 19");
+            }
+        }
+
+        while(inGame) {
+            if (yourTurn) {
+                makeMove();
+                yourTurn = false;
+            } else {
+                waitForEvent();
+            }
         }
     }
 
-
-    boolean closeConnection() {
-        try {
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("couldnt close connection");
-            //todo wat nu?
-            return false;
-        }
-        System.out.println("closed connection");
-        return true;
-    }
-
-    void executeCommand(String command) throws InterruptedException {
-        System.out.println("sending " + command);
-        outputBuffer.clear();                               //ready 2 b written in
-        command += "\n";                                    //!
-        outputBuffer.put(command.getBytes());
-
-        outputBuffer.flip();                                //ready 2 write
-        if (socket != null) {
-            if (socket.isConnected() && socket.isOpen()) {
-                try {
-                    while (outputBuffer.hasRemaining()) {
-                        socket.write(outputBuffer);                 //write
-                    }
-                } catch (IOException e) {
-                    closeConnection();
+    private void makeMove() {
+        if(player1IsHuman){
+            try {
+                    connection.sendMessage(moves.pop());
+                    inBoundMessageQueue.take();             //dispose of OK message
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            } else {
-                //todo wat doen we als de verbinding faalt?
-            }
+            return;//wait for user input
+        }else{
+            playerOne.makeMove();
         }
     }
 
-    /**
-     * read from SocketChannel and add read messages to inbound message blockingqueue
-     * @return
-     */
-    private String readChannel() {
-        int bytesRead;
-
-        if (socket.isConnected() && socket.isOpen()) {
-            try {
-                inputBuffer.clear();
-                bytesRead = socket.read(inputBuffer);
-                if (bytesRead < 0) {
-                    return "end of stream reached";
-                    //todo stream is gesloten, verbinding verbroken. wat nu?
-                } else {
-                    inputBuffer.flip();
-                    String output = "";
-                    while (inputBuffer.hasRemaining()) {
-                        output += (char) inputBuffer.get();
-                    }
-                    String lines[] = output.split("\\r?\\n");
-                    for(String line : lines) {
-                        inBoundMessageQueue.offer(line.trim());
-                    }
-                    return output;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "failed to read";
-                //todo wat nu?
-            }
-        } else {
-            //todo wat doen we als de verbinding faalt?
-            return null;
+    private void waitForEvent(){
+        try {
+        String message = inBoundMessageQueue.take(); //wait for opponent
+        //System.out.println(":"+message);
+        if(message.contains("YOURTURN")){
+            System.out.println("It's your turn");
+            yourTurn = true;
+        }
+        else if(message.contains("MOVE")){
+            processMove(message);
+        }
+        else if(message.contains("WIN")){
+            inGame = false;
+            System.out.println("YOU WON THE GAME!!");
+        }
+        else if(message.contains("DRAW")){
+            inGame = false;
+            System.out.println("Draw!");
+        }
+        else if(message.contains("LOSS")){
+            inGame = false;
+            System.out.println("something went wrong, we lost the game");
+        }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
-    class InputReader{
-        InputReader() {
-            new Thread(() -> {
-                Scanner scanner = new Scanner(System.in);
-                while (true) {
-                    if (scanner.hasNext()) {
-                        String nextline = scanner.nextLine();
-                        if (nextline.equals("init")) initialiseConnection();         //handmatige connectie
-                        else if (nextline.equals("close")) closeConnection();              //handmatige close
-                        else
-                            try {
-                                executeCommand(nextline);                                     //verstuur commando
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                    } else {
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }).start();
-        }
+    private void processMove(String message){
+        Matcher matcher = Pattern.compile("\"([^\"]*)\"").matcher(message);
+        matcher.find();
+        String player = matcher.group();//player
+        matcher.find();
+        String move = matcher.group();//move
+        matcher.find();
+        String details = matcher.group();//move
+        System.out.println(player+" placed tile on "+move+" server's reaction: "+details);
+        //todo: process move
+    }
+
+    public boolean isLoggedIn(){
+        return loggedIn;
+    }
+
+    public boolean login() {
+        return (loggedIn = commandHandler.login(Settings.PLAYER_NAME));
+    }
+
+    public ArrayList<String> getGameList(){
+        gameList = commandHandler.getGameList();
+        return gameList;
+    }
+
+    public ArrayList<String> getPlayerList(){
+        playerList = commandHandler.getPlayerList();
+        return playerList;
+    }
+    public boolean subscribe(String gameName){
+        waitingForGame = commandHandler.subscribe(gameName);
+        return waitingForGame;
+    }
+
+    public void forfeit(){
+        commandHandler.forfeit();
+    }
+
+
+    public void registerPLayer(AbstractPlayer player) {
+            this.playerOne = player;
+    }
+
+    public AbstractPlayer getPlayer(){return playerOne;}
+
+
+    public boolean isPlayer1IsHuman() {
+        return player1IsHuman;
+    }
+
+    public void setPlayer1IsHuman(boolean player1IsHuman) {
+        this.player1IsHuman = player1IsHuman;
+    }
+
+    public static void main(String[] args){
+        Client client = new Client();
     }
 }
