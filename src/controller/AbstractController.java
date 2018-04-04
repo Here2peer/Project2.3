@@ -5,9 +5,9 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public abstract class AbstractController extends JPanel {
-	protected ModelTicTacToe model;
+	protected ModelOthello model;
 
-	public AbstractController(ModelTicTacToe model) {
+	public AbstractController(ModelOthello model) {
 		this.model = model;
 	}
 

@@ -24,6 +24,7 @@ public class ModelOthello {
     public ModelOthello(ModelOthelloBot model) {
         this.modelOthelloBot=model;
         gridGen(8);
+        checkPossibleMoves();
     }
 
     private void checkPossibleMoves() {

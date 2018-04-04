@@ -15,6 +15,6 @@ public class Main{
 
 		Controller controller = new Controller(modelOthello);
 
-		MainFrame mainFrame = new MainFrame(controller, model);
+		MainFrame mainFrame = new MainFrame(controller, modelOthello);
 	}
 }

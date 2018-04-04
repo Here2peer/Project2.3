@@ -8,7 +8,7 @@ import java.awt.*;
 public class Controller extends AbstractController {
     public JLabel turnLabel;
 
-    public Controller(ModelTicTacToe model) {
+    public Controller(ModelOthello model) {
         super(model);
     }
 
@@ -16,8 +16,8 @@ public class Controller extends AbstractController {
         System.out.println("New Game!");
         int[][] multi = new int[3][3];
         model.setGridView(multi);
-        model.setTurn(true);
-        model.setGameState(true);
+//        model.setTurn(true);
+//        model.setGameState(true);
     }
 }
 

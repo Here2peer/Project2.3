@@ -20,7 +20,6 @@ public class ModelTicTacToe {
     }
 
     private boolean WinState() {
-
         for (int q = 0; q < 3; q++) {
             if (multi[q][0] == multi[q][1] && multi[q][1] == multi[q][2]) {
                 if (multi[q][0] != 0) {

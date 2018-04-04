@@ -1,7 +1,7 @@
 package view;
 
 import controller.Controller;
-import model.ModelTicTacToe;
+import model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,11 +14,11 @@ public class MainFrame implements ActionListener {
     private JButton resetButton;
     private JLabel turnLabel;
 
-    private ModelTicTacToe model;
+    private ModelOthello model;
     private GridView view;
     private Controller controller;
 
-    public MainFrame(Controller controller, ModelTicTacToe model){
+    public MainFrame(Controller controller, ModelOthello model){
                 this.model = model;
                 this.controller = controller;
                 this.view = new GridView(this.controller, this.model);

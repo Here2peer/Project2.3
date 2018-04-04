@@ -3,11 +3,12 @@ package view;
 import model.Model;
 import model.ModelTicTacToe;
 import controller.*;
+import model.*;
 
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public abstract class AbstractView<C extends Controller, M extends ModelTicTacToe> extends JPanel {
+public abstract class AbstractView<C extends Controller, M extends ModelOthello> extends JPanel {
 	protected C controller;
 	protected M model;
 
@@ -18,7 +19,7 @@ public abstract class AbstractView<C extends Controller, M extends ModelTicTacTo
 		this.model = model;
 	}
 	
-	public ModelTicTacToe getModel() {
+	public ModelOthello getModel() {
 		return model;
 	}
 	

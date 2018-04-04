@@ -1,7 +1,7 @@
 package view;
 
-import model.ModelTicTacToe;
 import controller.*;
+import model.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -42,17 +42,16 @@ public class GridView extends AbstractView {
         private int width;
         private int heigth;
 
-        int tictac = 8;
-        int orthello = 8;
+        int gamemode = 8;
 
         private JLabel turnLabel;
 
         public GridView(Controller controller, ModelOthello model){
             super(controller, model);
-            gridGen(tictac);
+            gridGen(gamemode);
             grid=new JButton[width][heigth]; //Groote van grid maken
-            //setStart();
-            initateFrame(tictac);
+            setStart();
+            initateFrame(gamemode);
         }
 
         private void initateFrame(int gametype) {
@@ -75,7 +74,7 @@ public class GridView extends AbstractView {
 
                         grid[y][x].addActionListener(new ActionListener(){
                             public void actionPerformed(ActionEvent e){
-                                model.move(finalY, finalX);
+                                changeGrid(1, finalY, finalX);
                                 updateView();
                                 gameOver();
                             }
@@ -142,19 +141,19 @@ public class GridView extends AbstractView {
         }
 
         public void gameOver() {
-            if (!model.getGameState()) {
-                for (int x = 0; x < 3; x++) {
-                    for (int y = 0; y < 3; y++) {
-                        grid[y][x].setEnabled(false);
-                    }
-                }
-            } else {
-                for (int x = 0; x < 3; x++) {
-                    for (int y = 0; y < 3; y++) {
-                        grid[y][x].setEnabled(true);
-                    }
-                }
-            }
+//            if (!model.getGameState()) {
+//                for (int x = 0; x < 3; x++) {
+//                    for (int y = 0; y < 3; y++) {
+//                        grid[y][x].setEnabled(false);
+//                    }
+//                }
+//            } else {
+//                for (int x = 0; x < 3; x++) {
+//                    for (int y = 0; y < 3; y++) {
+//                        grid[y][x].setEnabled(true);
+//                    }
+//                }
+//            }
         }
 
     public JLabel createJLabel() {
@@ -167,23 +166,23 @@ public class GridView extends AbstractView {
     }
 
     public void updateLabel() {
-        if (this.model.drawState()) {
-            turnLabel.setText("Game draw!");
-        } else {
-            if (!this.model.getGameState()) {
-                if (this.model.getTurn()) {
-                    turnLabel.setText("Orange won!");
-                } else {
-                    turnLabel.setText("Black won!");
-                }
-            } else {
-                if (this.model.getTurn()) {
-                    turnLabel.setText("It's black turn.");
-                } else {
-                    turnLabel.setText("It's orange turn.");
-                }
-            }
-        }
+//        if (this.model.drawState()) {
+//            turnLabel.setText("Game draw!");
+//        } else {
+//            if (!this.model.getGameState()) {
+//                if (this.model.getTurn()) {
+//                    turnLabel.setText("Orange won!");
+//                } else {
+//                    turnLabel.setText("Black won!");
+//                }
+//            } else {
+//                if (this.model.getTurn()) {
+//                    turnLabel.setText("It's black turn.");
+//                } else {
+//                    turnLabel.setText("It's orange turn.");
+//                }
+//            }
+//        }
     }
 
         public int[][] getGridView(){
