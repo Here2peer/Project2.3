@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainFrame implements ActionListener {
+public class MainView implements ActionListener {
 
     private JFrame mainFrame;
     private JButton resetButton;
@@ -18,7 +18,7 @@ public class MainFrame implements ActionListener {
     private GridView view;
     private Controller controller;
 
-    public MainFrame(Controller controller, ModelTicTacToe model){
+    public MainView(Controller controller, ModelTicTacToe model){
                 this.model = model;
                 this.controller = controller;
                 this.view = new GridView(controller, this.model);
