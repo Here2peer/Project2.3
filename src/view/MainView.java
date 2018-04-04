@@ -43,7 +43,7 @@ public class MainView implements ActionListener {
 
     private void addResetButton(){
         resetButton = new JButton();
-        resetButton.setBounds(520,30,100,40);
+        resetButton.setBounds(520,40,100,40);
         resetButton.setText("New Game!");
         resetButton.addActionListener(this);
         mainFrame.getContentPane().add(resetButton);

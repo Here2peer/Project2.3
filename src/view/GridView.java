@@ -159,7 +159,7 @@ public class GridView extends AbstractView {
 
     public JLabel createJLabel() {
         turnLabel = new JLabel();
-        turnLabel.setBounds(80, 20, 300, 50);
+        turnLabel.setBounds(80, 40, 300, 50);
         turnLabel.setText("-");
         turnLabel.setFont(new Font("SANS_SERIF", Font.PLAIN, 25));
 
