@@ -167,9 +167,7 @@ public class GridView extends AbstractView {
     }
 
     public void updateLabel() {
-        if (this.model.drawState()) {
-            turnLabel.setText("Game draw!");
-        } else {
+
             if (!this.model.getGameState()) {
                 if (this.model.getTurn()) {
                     turnLabel.setText("Orange won!");
@@ -177,12 +175,15 @@ public class GridView extends AbstractView {
                     turnLabel.setText("Black won!");
                 }
             } else {
-                if (this.model.getTurn()) {
-                    turnLabel.setText("It's black turn.");
+                if (this.model.drawState()) {
+                        turnLabel.setText("Game draw!");
                 } else {
-                    turnLabel.setText("It's orange turn.");
+                    if (this.model.getTurn()) {
+                        turnLabel.setText("It's black turn.");
+                    } else {
+                        turnLabel.setText("It's orange turn.");
+                    }
                 }
-            }
         }
     }
 
@@ -192,8 +193,8 @@ public class GridView extends AbstractView {
 
     @Override
     public void updateView() {
-            colorFrames();
-            updateLabel();
+        colorFrames();
+        updateLabel();
         repaint();
     }
 }
