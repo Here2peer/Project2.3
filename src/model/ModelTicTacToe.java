@@ -4,8 +4,8 @@ import view.AbstractView;
 
 public class ModelTicTacToe {
 
-    boolean turn = true;
-    boolean gamestate = true;
+    private boolean turn = true;
+    private boolean gamestate = true;
 
     private int[][] multi;
 
