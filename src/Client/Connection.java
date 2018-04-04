@@ -1,4 +1,4 @@
-package ConnectionHandler;
+package Client;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

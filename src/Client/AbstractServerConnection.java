@@ -1,4 +1,4 @@
-package ConnectionHandler;
+package Client;
 
 import model.AbstractPlayer;
 
@@ -48,7 +48,7 @@ public interface AbstractServerConnection {
      */
     void forfeit();
 
-    boolean isPlayer1IsHuman();
+    boolean Player1IsHuman();
 
     void setPlayer1IsHuman(boolean player1IsHuman);
 }
