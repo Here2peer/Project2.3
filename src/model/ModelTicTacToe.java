@@ -65,11 +65,13 @@ public class ModelTicTacToe {
 
     public void move(int y, int x){
         if(this.multi[y][x] == 0){
+
             if(this.turn) {
                 this.multi[y][x] = 1;
             }else{
                 this.multi[y][x] = 2;
             }
+
             if(WinState()) {
                 if(turn) {
                     this.gamestate = false;

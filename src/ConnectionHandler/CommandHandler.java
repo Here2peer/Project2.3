@@ -16,17 +16,6 @@ public class CommandHandler {
     CommandHandler(BlockingQueue<String> inBoundMessageQueue, Client client) {
         this.inBoundMessageQueue = inBoundMessageQueue;
         this.client = client;
-
-        /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        //print responses
-        new Thread(()->{
-            try {
-                while(true)System.out.println(inBoundMessageQueue.take());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }).start();
-        *///~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     }
 
 
