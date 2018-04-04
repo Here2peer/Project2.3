@@ -135,7 +135,7 @@ public class CommandHandler {
         for (String returnOutput : returnMessages) {
             if (returnOutput != null) {
                 if (returnOutput.equals("OK")) {
-                    System.out.println("logged in");
+                    System.out.println("logged in as " + Settings.PLAYER_NAME);
                     return true;
                 } else if (returnOutput.startsWith("ERR Duplicate")) {
                     return login(playerName + "x");

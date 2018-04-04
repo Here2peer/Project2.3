@@ -37,7 +37,6 @@ public class ServerConnection implements AbstractServerConnection {
         //Client client = new Client(inBoundMessageQueue);
         client = new Client(inBoundMessageQueue);
         commandHandler = new CommandHandler(inBoundMessageQueue, client);
-        moves.addLast("MOVE d, 2");
         if(login()){
             if(subscribe(getGameList().get(0))){
                 System.out.println("waitForGame");
@@ -49,7 +48,7 @@ public class ServerConnection implements AbstractServerConnection {
     private void waitForGame() {
         try {
             String gameMessage = inBoundMessageQueue.take();
-            System.out.println(gameMessage);
+            //System.out.println(gameMessage);
             if(gameMessage.startsWith("SVR GAME MATCH")){
                 waitingForGame = false;
                 inGame(gameMessage);
@@ -72,8 +71,12 @@ public class ServerConnection implements AbstractServerConnection {
             }
             if(!firstPlayerToMove.equals(opponentName)){
                 System.out.println("you start the game");
+                moves.addLast("MOVE 19");
+                moves.addLast("MOVE 17");
             }else{
                 System.out.println("you do not start the game");
+                moves.addLast("MOVE 18");
+                moves.addLast("MOVE 19");
             }
         }
 
@@ -89,12 +92,12 @@ public class ServerConnection implements AbstractServerConnection {
 
     private void makeMove() {
         if(player1IsHuman){
-            /*try {
+            try {
                     client.executeCommand(moves.pop());
-                    System.out.println(inBoundMessageQueue.take());
+                    inBoundMessageQueue.take();             //dispose of OK message
                 } catch (InterruptedException e) {
                     e.printStackTrace();
-                }*/
+                }
             return;//wait for user input
         }else{
             playerOne.makeMove();
@@ -104,7 +107,7 @@ public class ServerConnection implements AbstractServerConnection {
     private void waitForEvent(){
         try {
         String message = inBoundMessageQueue.take(); //wait for opponent
-        System.out.println(":"+message);
+        //System.out.println(":"+message);
         if(message.contains("YOURTURN")){
             System.out.println("It's your turn");
             yourTurn = true;
@@ -122,7 +125,7 @@ public class ServerConnection implements AbstractServerConnection {
         }
         else if(message.contains("LOSS")){
             inGame = false;
-            System.err.println("something went wrong, we lost the game");
+            System.out.println("something went wrong, we lost the game");
         }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -132,11 +135,12 @@ public class ServerConnection implements AbstractServerConnection {
     private void processMove(String message){
         Matcher matcher = Pattern.compile("\"([^\"]*)\"").matcher(message);
         matcher.find();
-        System.out.println( matcher.group());//player
+        String player = matcher.group();//player
         matcher.find();
-        System.out.println(matcher.group());//details
+        String move = matcher.group();//move
         matcher.find();
-        System.out.println( matcher.group());//move
+        String details = matcher.group();//move
+        System.out.println(player+" placed tile on "+move+" server's reaction: "+details);
         //todo: process move
     }
 
