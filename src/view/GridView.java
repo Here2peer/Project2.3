@@ -33,14 +33,8 @@ public class GridView extends AbstractView {
 
          */
 
-        private JButton[][] grid; //names the grid of buttons
-
-
-        //2D Array met waarden van vakjes erin
-        private int[][] multi;
-
-        private int width;
-        private int heigth;
+        private JButton[][] grid; //2dimensional array with JButtons
+        private int[][] multi; //2dimensional array with integers
 
         int tictac = 3;
         int orthello = 8;
@@ -50,7 +44,7 @@ public class GridView extends AbstractView {
     public GridView(Controller controller, ModelTicTacToe model){
             super(controller, model);
             gridGen(tictac);
-            grid=new JButton[width][heigth]; //Groote van grid maken
+            grid=new JButton[multi.length][multi.length]; //Groote van grid maken
             //setStart();
             initateFrame(tictac);
         }
@@ -75,7 +69,7 @@ public class GridView extends AbstractView {
 
                         grid[y][x].addActionListener(new ActionListener(){
                             public void actionPerformed(ActionEvent e){
-                                model.move(finalY, finalX);
+                                model.setMove(finalY, finalX);
                                 updateView();
                                 gameOver();
                             }
@@ -137,8 +131,6 @@ public class GridView extends AbstractView {
         private void gridGen(int gametype){
             //2D Array met waarden van vakjes erin
             this.multi = new int[gametype][gametype];
-            this.width = multi.length;
-            this.heigth = multi.length;
         }
 
         public void gameOver() {
@@ -167,8 +159,7 @@ public class GridView extends AbstractView {
     }
 
     public void updateLabel() {
-
-            if (this.model.WinState()) { //Als iemand gewonnen heeft
+            if (this.model.getWinState()) { //Als iemand gewonnen heeft
                 if (this.model.getTurn()) {
                     turnLabel.setText("Orange won!");
                 } else {
@@ -185,7 +176,6 @@ public class GridView extends AbstractView {
                     turnLabel.setText("It's orange turn.");
                 }
             }
-
     }
 
 
