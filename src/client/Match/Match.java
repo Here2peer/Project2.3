@@ -18,7 +18,6 @@ public class Match extends ObservableMatch {
     private String gameType = "notInGame";
     private String opponentName = "";
 
-    private boolean playerIsHuman = true;
     private AbstractPlayer player;
 
     public Match(String startingPlayer, String opponentName, String gameType, Client client) {

@@ -17,10 +17,12 @@ public class Connection {
     private ByteBuffer outputBuffer = ByteBuffer.allocate(182);
 
     private BlockingQueue<String> inBoundMessageQueue;
+    private BlockingQueue<String> challengeQueue;
 
 
-    public Connection(BlockingQueue<String> inBoundMessageQueue) {
+    public Connection(BlockingQueue<String> inBoundMessageQueue, BlockingQueue<String> challengeQueue) {
         this.inBoundMessageQueue = inBoundMessageQueue;
+        this.challengeQueue = challengeQueue;
 
         initialiseConnection();
     }

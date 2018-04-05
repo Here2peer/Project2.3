@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
  */
 public class Client implements AbstractClient {
     private BlockingQueue<String> inBoundMessageQueue = new LinkedBlockingQueue<String>();
+    private BlockingQueue<String> challengeQueue = new LinkedBlockingQueue<String>();
     private CommandHandler commandHandler;
 
     private ArrayList<String> gameList;
@@ -34,8 +35,7 @@ public class Client implements AbstractClient {
     Connection connection;
 
     Client(){
-        //Connection connection = new Connection(inBoundMessageQueue);
-        connection = new Connection(inBoundMessageQueue);
+        connection = new Connection(inBoundMessageQueue, challengeQueue);
         commandHandler = new CommandHandler(inBoundMessageQueue, connection);
 
         //todo:this below is an example

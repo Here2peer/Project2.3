@@ -1,6 +1,5 @@
 package view;
 
-import model.Model;
 import model.ModelTicTacToe;
 import controller.*;
 
