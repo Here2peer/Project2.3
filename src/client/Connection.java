@@ -1,4 +1,4 @@
-package Client;
+package client;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -19,7 +19,7 @@ public class Connection {
     private BlockingQueue<String> inBoundMessageQueue;
 
 
-    Connection(BlockingQueue<String> inBoundMessageQueue) {
+    public Connection(BlockingQueue<String> inBoundMessageQueue) {
         this.inBoundMessageQueue = inBoundMessageQueue;
 
         initialiseConnection();

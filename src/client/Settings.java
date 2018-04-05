@@ -1,4 +1,4 @@
-package Client;
+package client;
 
 /**
  * Created by Rick Huizing on 3-4-2018.

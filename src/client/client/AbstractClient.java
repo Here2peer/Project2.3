@@ -1,5 +1,7 @@
-package Client;
+package client.client;
 
+import client.Connection;
+import client.Settings;
 import model.AbstractPlayer;
 
 import java.util.ArrayList;
@@ -7,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by Rick Huizing on 4-4-2018.
  */
-public interface AbstractServerConnection {
+public interface AbstractClient {
 
     boolean isLoggedIn();
 
@@ -48,7 +50,15 @@ public interface AbstractServerConnection {
      */
     void forfeit();
 
-    boolean Player1IsHuman();
+    void waitForMatch();
 
-    void setPlayer1IsHuman(boolean player1IsHuman);
+    void enterMatch(String gameMessage);
+
+    public void endMatch();
+
+    public boolean localPlayerTurn();
+
+    public String getNextMessage() throws InterruptedException;
+
+    public Connection getConnection();
 }

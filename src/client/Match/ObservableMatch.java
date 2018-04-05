@@ -1,4 +1,4 @@
-package Client.Match;
+package client.Match;
 
 import java.util.ArrayList;
 
