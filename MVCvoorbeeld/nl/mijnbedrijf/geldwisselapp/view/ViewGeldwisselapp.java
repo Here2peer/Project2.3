@@ -9,7 +9,7 @@ import nl.mijnbedrijf.geldwisselapp.model.ModelGeldwisselapp;
 public class ViewGeldwisselapp extends View<ControllerGeldwisselapp, ModelGeldwisselapp> { // JPanel
 
 	private Label resultaat;
-	cont
+
 	public ViewGeldwisselapp(ControllerGeldwisselapp controller, ModelGeldwisselapp model) {
 		super(controller, model);
 		Label label = new Label("Bedrag in euro's:");

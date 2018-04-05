@@ -1,4 +1,4 @@
-package view;
+package extra;
 
 import java.awt.Component;
 import java.awt.Graphics;

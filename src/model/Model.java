@@ -3,9 +3,6 @@ package model;
 import view.*;
 import java.util.ArrayList;
 
-
-
-
 abstract public class Model {
 
 	private ArrayList<GridView> views=new ArrayList<GridView>();
@@ -16,7 +13,6 @@ abstract public class Model {
 
 	public void notifyViews() {
 		for(GridView v: views) v.updateView();
-
 	}
 
 }
