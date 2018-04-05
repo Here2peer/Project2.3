@@ -10,5 +10,4 @@ public abstract class AbstractController extends JPanel {
 	public AbstractController(ModelTicTacToe model) {
 		this.model = model;
 	}
-
 }
