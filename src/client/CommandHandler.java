@@ -1,4 +1,4 @@
-package Client;
+package client;
 
 import java.util.ArrayList;
 import java.util.Arrays;

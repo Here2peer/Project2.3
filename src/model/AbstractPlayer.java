@@ -12,21 +12,25 @@ public abstract class AbstractPlayer {
      * notifies the player that he must make his move.
      * the default implementation won't get you far...
      */
-    void makeMove(){
+    public void makeMove(){
         String move = "0";
         makeMove(move);
     }
 
     /**
      * makes the player make a move.
-     * Should block until move is made.
      * @param move the move
      */
     void makeMove(String move){
         this.move.offer(move);
     }
 
-    String getMove(){
+    /**
+     * retrieves player move
+     * blocks the thread until a move is submitted
+     * @return the player's move
+     */
+    public String getMove(){
         try {
             return move.take();
         } catch (InterruptedException e) {
@@ -34,4 +38,6 @@ public abstract class AbstractPlayer {
         }
         return "0";
     }
+
+    public abstract void firstToMove(boolean firstPlayerToMove);
 }

@@ -1,6 +1,6 @@
-package Client.Match;
+package client.Match;
 
-import Client.Client;
+import client.client.Client;
 import model.AbstractPlayer;
 
 import java.util.LinkedList;
@@ -21,13 +21,12 @@ public class Match extends ObservableMatch {
     private boolean playerIsHuman = true;
     private AbstractPlayer player;
 
-    private LinkedList<String> moves = new LinkedList<>();
-
     public Match(String startingPlayer, String opponentName, String gameType, Client client) {
         this.firstPlayerToMove = startingPlayer;
         this.opponentName = opponentName;
         this.gameType = gameType;
         this.client = client;
+        this.player = client.getPlayer();
         start();
     }
 
@@ -35,21 +34,18 @@ public class Match extends ObservableMatch {
      * game starts either by a YOURTURN message or a move by your opponent
      */
     void start() {
-        if (!firstPlayerToMove.equals(opponentName)) {
-            System.out.println("you start the game");
-            moves.addLast("MOVE 19");
-            moves.addLast("MOVE 17");
-        } else {
-            System.out.println("you do not start the game");
-            moves.addLast("MOVE 18");
-            moves.addLast("MOVE 19");
-        }
+        player.firstToMove(!firstPlayerToMove.equals(opponentName));
 
         while (inMatch){
             if (yourTurn) {
-                makeMove();         //todo: delete this line and uncomment below lines
-                //player.makeMove();//todo: implement player
-                //yourMove = false;
+                //makeMove();         //todo: delete this line and uncomment below lines
+                player.makeMove();//todo: implement player
+                try {
+                    client.getConnection().sendMessage(player.getMove());
+                    client.getNextMessage();             //dispose of OK message
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 setYourTurn(false);
             } else {
                 waitForEvent();
@@ -95,16 +91,6 @@ public class Match extends ObservableMatch {
         String details = matcher.group();//move
         System.out.println(player+" placed tile on "+move+" server's reaction: "+details);
         //todo: process move
-    }
-
-    private void makeMove() {
-        try {
-            client.getConnection().sendMessage(moves.pop());
-            client.getNextMessage();             //dispose of OK message
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
     }
 
     public boolean localPlayerTurn() {

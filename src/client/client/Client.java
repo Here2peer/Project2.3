@@ -1,7 +1,11 @@
-package Client;
+package client.client;
 
-import Client.Match.Match;
+import client.CommandHandler;
+import client.Connection;
+import client.Match.Match;
+import client.Settings;
 import model.AbstractPlayer;
+import model.StupidAIPlayer;
 
 import java.util.ArrayList;
 import java.util.concurrent.BlockingQueue;
@@ -13,7 +17,7 @@ import java.util.regex.Pattern;
  * Created by Rick Huizing on 3-4-2018.
  * represents the connection with the server.
  */
-public class Client implements AbstractServerConnection{
+public class Client implements AbstractClient {
     private BlockingQueue<String> inBoundMessageQueue = new LinkedBlockingQueue<String>();
     private CommandHandler commandHandler;
 
@@ -25,7 +29,6 @@ public class Client implements AbstractServerConnection{
     private boolean inMatch = false;
     private Match match = null;
 
-    private boolean player1IsHuman = true;
     private AbstractPlayer player = null;
 
     Connection connection;
@@ -34,6 +37,9 @@ public class Client implements AbstractServerConnection{
         //Connection connection = new Connection(inBoundMessageQueue);
         connection = new Connection(inBoundMessageQueue);
         commandHandler = new CommandHandler(inBoundMessageQueue, connection);
+
+        //todo:this below is an example
+        registerPLayer(new StupidAIPlayer());
         if(login()){
             if(subscribe(getGameList().get(0))){
                 System.out.println("waitForMatch");
@@ -42,7 +48,7 @@ public class Client implements AbstractServerConnection{
         }
     }
 
-    void waitForMatch() {
+    public void waitForMatch() {
         try {
             String gameMessage = inBoundMessageQueue.take();
             //System.out.println(gameMessage);
@@ -55,7 +61,7 @@ public class Client implements AbstractServerConnection{
         }
     }
 
-    void enterMatch(String gameMessage) {
+    public void enterMatch(String gameMessage) {
         inMatch = true;
         Matcher matcher = Pattern.compile("\"([^\"]*)\"").matcher(gameMessage);
         if (matcher.find()) {
@@ -128,14 +134,6 @@ public class Client implements AbstractServerConnection{
 
     public AbstractPlayer getPlayer(){return player;}
 
-
-    public boolean Player1IsHuman() {
-        return player1IsHuman;
-    }
-
-    public void setPlayer1IsHuman(boolean player1IsHuman) {
-        this.player1IsHuman = player1IsHuman;
-    }
 
     public static void main(String[] args){
         Client client = new Client();
