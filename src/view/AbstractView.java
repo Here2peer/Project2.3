@@ -1,26 +1,18 @@
 package view;
 
-import model.Model;
-import model.ModelTicTacToe;
-import controller.*;
+import javafx.scene.layout.VBox;
+import controller.AbstractController;
+import model.AbstractModel;
 
-import javax.swing.JPanel;
+abstract public class AbstractView<C extends AbstractController, M extends AbstractModel> extends VBox {
 
-@SuppressWarnings("serial")
-public abstract class AbstractView<C extends Controller, M extends ModelTicTacToe> extends JPanel {
-	protected C controller;
-	protected M model;
+    protected C controller;
+    protected M model;
 
-	abstract public void updateView();
+    abstract public void updateView();
 
-	public AbstractView(C controller, M model) {
-		this.controller = controller;
-		this.model = model;
-	}
-	
-	public ModelTicTacToe getModel() {
-		return model;
-	}
-	
-
+    public AbstractView(C controller, M model) {
+        this.controller = controller;
+        this.model = model;
+    }
 }

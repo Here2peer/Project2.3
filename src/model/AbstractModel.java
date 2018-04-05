@@ -1,23 +1,18 @@
 package model;
 
 import view.AbstractView;
-
 import java.util.ArrayList;
-import java.util.List;
 
-public abstract class AbstractModel {
-	private List<AbstractView> views;
+abstract public class AbstractModel {
 
-	public AbstractModel() {
-		views=new ArrayList<AbstractView>();
-	}
-	
-	public void addView(AbstractView view) {		
-	    views.add(view);
-	}
+    private ArrayList<AbstractView> views = new ArrayList<AbstractView>();
 
-	public void notifyViews() {
-	    for(AbstractView v: views) v.updateView();
-	}
+    public void addView(AbstractView view) {
+        views.add(view);
+    }
+
+    public void notifyViews() {
+        for(AbstractView v: views) v.updateView();
+    }
 
 }

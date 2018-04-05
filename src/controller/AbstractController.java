@@ -1,14 +1,11 @@
 package controller;
-import model.*;
 
-import javax.swing.JPanel;
+import model.AbstractModel;
 
-@SuppressWarnings("serial")
-public abstract class AbstractController extends JPanel {
-	protected ModelTicTacToe model;
+abstract public class AbstractController<M extends AbstractModel> {
+    protected M model;
 
-	public AbstractController(ModelTicTacToe model) {
-		this.model = model;
-	}
-
+    public AbstractController(M model) {
+        this.model = model;
+    }
 }
